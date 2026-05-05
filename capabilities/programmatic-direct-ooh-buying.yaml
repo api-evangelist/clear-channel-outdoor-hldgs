@@ -1,0 +1,34 @@
+apiVersion: naftiko.io/v1
+kind: Capability
+metadata:
+  name: programmatic-direct-ooh-buying
+  title: Programmatic-Direct OOH Buying
+  description: >-
+    End-to-end workflow for buying Clear Channel Outdoor digital and static
+    OOH inventory through the CCO.IO Automated Direct API: discover displays
+    and networks, package them as products, build an order with line items,
+    attach creatives, and confirm the booking.
+uses:
+  - shared/clear-channel-outdoor-direct.yaml
+workflow:
+  - step: discover-inventory
+    operation: search-displays
+    description: Discover digital displays matching campaign criteria (geo, format, resolution).
+  - step: select-network
+    operation: search-network-displays
+    description: Drill into a network and enumerate the screens it contains.
+  - step: build-product
+    operation: search-products
+    description: Locate or define the bookable product backing the chosen displays.
+  - step: get-pricing
+    operation: get-current-quote
+    description: Retrieve current pricing for the candidate flight.
+  - step: create-order
+    operation: create-order
+    description: Submit the order envelope (advertiser, brand, budget, dates, currency).
+  - step: confirm-order
+    operation: get-order
+    description: Poll the order to confirm APPROVED status.
+  - step: attach-creatives
+    operation: search-creatives-v2
+    description: Verify or attach ad creatives via the v2 creatives endpoint.

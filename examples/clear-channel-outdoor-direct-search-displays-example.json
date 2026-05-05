@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://direct.cco.io/v1/displays?filter=mediaProducts.type%3DDigital&filter=digital.width%3D1080&limit=50",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "Accept": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "DSP-NYC-TIMESQ-04",
+          "title": "Times Square Spectacular #4",
+          "mediaProducts": [
+            {
+              "type": "Digital",
+              "format": "Spectacular"
+            }
+          ],
+          "digital": {
+            "width": 1920,
+            "height": 1080
+          },
+          "externalIds": [
+            { "system": "Geopath", "value": "12345678" }
+          ]
+        },
+        {
+          "id": "DSP-LAX-405-22",
+          "title": "I-405 Digital Bulletin",
+          "mediaProducts": [
+            { "type": "Digital", "format": "Bulletin" }
+          ],
+          "digital": { "width": 1920, "height": 1080 }
+        }
+      ],
+      "total": 2,
+      "offset": 0,
+      "limit": 50
+    }
+  }
+}

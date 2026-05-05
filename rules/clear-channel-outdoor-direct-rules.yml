@@ -1,0 +1,98 @@
+extends: [["@stoplight/spectral-rulesets/oas", off]]
+documentationUrl: https://github.com/api-evangelist/clear-channel-outdoor-hldgs/tree/main/rules
+rules:
+  cco-info-title-required:
+    description: API title must be set and identify Clear Channel Outdoor.
+    severity: error
+    given: $.info.title
+    then:
+      function: pattern
+      functionOptions:
+        match: "(?i)clear channel"
+
+  cco-server-url-direct:
+    description: Servers must include the canonical direct.cco.io gateway.
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://(direct|developer|api)\\.cco\\.io"
+
+  cco-oauth2-client-credentials-required:
+    description: APIs must declare an OAuth2 clientCredentials security scheme with the canonical token URL.
+    severity: error
+    given: $.components.securitySchemes[*]
+    then:
+      - field: type
+        function: enumeration
+        functionOptions: { values: [oauth2] }
+      - field: flows.clientCredentials.tokenUrl
+        function: pattern
+        functionOptions:
+          match: "^https://direct\\.cco\\.io/v2/token$"
+
+  cco-paths-versioned:
+    description: Path entries MUST be prefixed with a version segment (e.g. /v1, /v2, /v3).
+    severity: error
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/v[0-9]+/"
+
+  cco-operation-summary-title-case:
+    description: Operation summaries should use Title Case.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: "^([A-Z][A-Za-z0-9]*)( [A-Z0-9][A-Za-z0-9]*)*$"
+
+  cco-operation-tagged:
+    description: Every operation must be tagged with one of the canonical CCO resource tags.
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].tags
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+              - Displays
+              - Networks
+              - Markets
+              - Products
+              - Orders
+              - Bookings
+              - Campaigns
+              - Creatives
+              - Photos
+              - Customers
+              - Accounts
+              - Contracts
+              - Pricing
+              - Renewals
+              - Restrictions
+              - Taxonomies
+              - Authentication
+
+  cco-search-pagination-params:
+    description: Collection-search GET endpoints should expose offset and limit parameters.
+    severity: warn
+    given: $.paths[*].get
+    then:
+      field: parameters
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            type: object
+            properties:
+              name: { enum: [offset, limit, filter] }
+            required: [name]

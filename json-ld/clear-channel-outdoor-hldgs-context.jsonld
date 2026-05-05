@@ -1,0 +1,203 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "openrtb": "https://iabtechlab.com/standards/openrtb/#",
+    "opendirect": "https://raw.githubusercontent.com/Outsmart-OOH/ooh_open_direct/master/schema/v1/",
+    "cco": "https://www.clearchanneloutdoor.com/vocab/",
+
+    "OutOfHomeMediaCompany": "schema:Organization",
+    "DemandSidePlatform": "cco:DemandSidePlatform",
+    "SupplySidePlatform": "cco:SupplySidePlatform",
+    "MeasurementProvider": "cco:MeasurementProvider",
+    "ProgrammaticDOOHIntegration": "cco:ProgrammaticDOOHIntegration",
+    "DigitalOutOfHomeDisplay": "cco:DigitalOutOfHomeDisplay",
+    "AudienceDataSuite": "cco:AudienceDataSuite",
+    "Order": "opendirect:resources/order/order_object.json",
+    "Line": "opendirect:resources/line/line_object.json",
+    "Product": "opendirect:resources/product/product_object.json",
+    "Account": "opendirect:resources/account/account_object.json",
+
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "identifier": "schema:identifier",
+    "ticker": {
+      "@id": "schema:tickerSymbol",
+      "@type": "schema:Text"
+    },
+    "fortune1000Rank": {
+      "@id": "cco:fortune1000Rank",
+      "@type": "schema:Integer"
+    },
+
+    "operatesInventory": {
+      "@id": "cco:operatesInventory",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "inventoryFormat": {
+      "@id": "cco:inventoryFormat",
+      "@type": "schema:Text"
+    },
+    "billboard": "cco:billboard",
+    "streetFurniture": "cco:streetFurniture",
+    "transit": "cco:transit",
+    "digitalOutOfHome": "cco:digitalOutOfHome",
+    "airport": "cco:airport",
+
+    "dspPartner": {
+      "@id": "cco:dspPartner",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "sspPartner": {
+      "@id": "cco:sspPartner",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "measurementPartner": {
+      "@id": "cco:measurementPartner",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "audienceDataPartner": {
+      "@id": "cco:audienceDataPartner",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "biddingProtocol": {
+      "@id": "cco:biddingProtocol",
+      "@type": "schema:Text"
+    },
+    "supportedAdFormats": {
+      "@id": "cco:supportedAdFormats",
+      "@type": "schema:Text",
+      "@container": "@set"
+    },
+    "transactionType": {
+      "@id": "cco:transactionType",
+      "@type": "schema:Text"
+    },
+    "guaranteed": "cco:guaranteed",
+    "nonGuaranteed": "cco:nonGuaranteed",
+    "privateMarketplace": "cco:privateMarketplace",
+    "openExchange": "cco:openExchange",
+
+    "audienceMeasurement": {
+      "@id": "cco:audienceMeasurement",
+      "@type": "@id"
+    },
+    "attributionMethod": {
+      "@id": "cco:attributionMethod",
+      "@type": "schema:Text"
+    },
+    "impressionMultiplier": {
+      "@id": "cco:impressionMultiplier",
+      "@type": "schema:Number"
+    },
+
+    "OpenRTBBidRequest": "openrtb:BidRequest",
+    "OpenRTBBidResponse": "openrtb:BidResponse",
+    "DoohObject": "openrtb:DOOH",
+    "venueType": {
+      "@id": "openrtb:venuetype",
+      "@type": "schema:Text"
+    },
+    "venueTypeTax": {
+      "@id": "openrtb:venuetypetax",
+      "@type": "schema:Integer"
+    },
+    "screen": "openrtb:screen",
+    "fixedScreenSize": {
+      "@id": "openrtb:fixedscreensize",
+      "@type": "@id"
+    },
+    "minBidToWin": {
+      "@id": "openrtb:mincpmperimp",
+      "@type": "schema:Number"
+    },
+
+    "geoPosition": {
+      "@id": "schema:geo",
+      "@type": "schema:GeoCoordinates"
+    },
+    "marketArea": {
+      "@id": "cco:marketArea",
+      "@type": "schema:Text"
+    },
+
+    "OrderId": "opendirect:resources/order/order_id_string.json",
+    "LineId": "opendirect:resources/line/line_id_string.json",
+    "ProductId": "opendirect:resources/product/product_id_string.json",
+    "Budget": {
+      "@id": "opendirect:resources/order/order_object.json#Budget",
+      "@type": "schema:Number"
+    },
+    "Currency": {
+      "@id": "opendirect:resources/order/order_object.json#Currency",
+      "@type": "schema:Text"
+    },
+    "OrderStatus": {
+      "@id": "opendirect:resources/order/order_object.json#OrderStatus",
+      "@type": "schema:Text"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "https://www.clearchanneloutdoor.com/#org",
+      "@type": "OutOfHomeMediaCompany",
+      "name": "Clear Channel Outdoor Holdings",
+      "url": "https://www.clearchanneloutdoor.com",
+      "ticker": "CCO",
+      "fortune1000Rank": 1000,
+      "description": "Out-of-home advertising operator running billboards, street furniture, transit, and digital out-of-home displays in the U.S. and select international markets.",
+      "operatesInventory": [
+        "billboard",
+        "streetFurniture",
+        "transit",
+        "digitalOutOfHome",
+        "airport"
+      ],
+      "biddingProtocol": "OpenRTB 2.6 DOOH",
+      "transactionType": [
+        "guaranteed",
+        "nonGuaranteed",
+        "privateMarketplace",
+        "openExchange"
+      ],
+      "audienceDataPartner": "https://www.clearchanneloutdoor.com/#radar",
+      "dspPartner": [
+        "https://www.adelphic.com/#dsp",
+        "https://site.adform.com/#dsp",
+        "https://www.adomni.com/#dsp",
+        "https://www.adquick.com/#dsp",
+        "https://www.campsite.com/#dsp",
+        "https://displayce.com/#dsp",
+        "https://marketingplatform.google.com/about/display-video-360/#dsp",
+        "https://hivestack.com/#ssp",
+        "https://www.nexxen.com/#dsp",
+        "https://www.roku.com/oneview/#dsp",
+        "https://outmoove.com/#dsp",
+        "https://www.pulsepoint.com/#dsp",
+        "https://www.quotient.com/#dsp",
+        "https://simpli.fi/#dsp",
+        "https://sito.mobi/#dsp",
+        "https://www.stackadapt.com/#dsp",
+        "https://www.thetradedesk.com/#dsp",
+        "https://www.vistarmedia.com/#dsp",
+        "https://www.xandr.com/#dsp",
+        "https://advertising.yahooinc.com/#dsp",
+        "https://www.zetaglobal.com/#dsp"
+      ]
+    },
+    {
+      "@id": "https://www.clearchanneloutdoor.com/#radar",
+      "@type": "AudienceDataSuite",
+      "name": "RADAR",
+      "url": "https://clearchanneloutdoor.com/radar-data-solutions/",
+      "description": "Audience and attribution suite for OOH planning, activation, and measurement based on aggregated mobile location data.",
+      "attributionMethod": "MobileLocationPanel"
+    }
+  ]
+}

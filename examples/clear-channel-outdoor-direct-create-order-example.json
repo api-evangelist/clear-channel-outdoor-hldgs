@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://direct.cco.io/v1/orders",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "AccountId": "ACCT-12345",
+      "AdvertiserBrandId": "BRAND-987",
+      "Name": "Q3 Brand Lift - Northeast Markets",
+      "Budget": 250000.00,
+      "Currency": "USD",
+      "StartDate": "2026-07-01T00:00:00Z",
+      "EndDate": "2026-09-30T23:59:59Z",
+      "OrderStatus": "PENDING",
+      "PreferredBillingMethod": "Electronic",
+      "Contacts": [
+        {
+          "name": "Jane Buyer",
+          "email": "jane.buyer@agency.example",
+          "role": "Buyer"
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "Id": "ORD-2026-Q3-0042",
+      "AccountId": "ACCT-12345",
+      "AdvertiserBrandId": "BRAND-987",
+      "Name": "Q3 Brand Lift - Northeast Markets",
+      "Budget": 250000.00,
+      "Currency": "USD",
+      "StartDate": "2026-07-01T00:00:00Z",
+      "EndDate": "2026-09-30T23:59:59Z",
+      "OrderStatus": "PENDING",
+      "PreferredBillingMethod": "Electronic"
+    }
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "$id": "https://raw.githubusercontent.com/api-evangelist/clear-channel-outdoor-hldgs/main/json-structure/clear-channel-outdoor-hldgs-pdooh-supply-chain-structure.json",
+  "title": "pDOOH Supply Chain Structure",
+  "description": "Structural map of the programmatic Digital-Out-of-Home supply chain as it touches Clear Channel Outdoor: buyers transact through DSPs, which connect to SSPs/exchanges that expose CCO inventory; measurement and audience data partners attach throughout.",
+  "version": "0.1.0",
+  "structure": {
+    "publisher": {
+      "kind": "object",
+      "description": "The OOH media owner and inventory operator.",
+      "fields": {
+        "name": "string",
+        "ticker": "string",
+        "inventory": "[InventoryCategory]",
+        "audienceDataSuite": "AudienceDataSuite"
+      }
+    },
+    "InventoryCategory": {
+      "kind": "enum",
+      "values": ["Billboard", "StreetFurniture", "Transit", "Airport", "Mall", "Spectacular"]
+    },
+    "Display": {
+      "kind": "object",
+      "description": "An addressable digital screen or static face within the publisher's inventory.",
+      "fields": {
+        "id": "string",
+        "venueType": "string",
+        "venueTypeTax": "integer",
+        "geo": "GeoCoordinates",
+        "screen": "Screen",
+        "transactionTypes": "[TransactionType]"
+      }
+    },
+    "Screen": {
+      "kind": "object",
+      "fields": {
+        "physicalWidth": "number",
+        "physicalHeight": "number",
+        "resolutionWidth": "integer",
+        "resolutionHeight": "integer",
+        "fixedScreenSize": "boolean"
+      }
+    },
+    "TransactionType": {
+      "kind": "enum",
+      "values": ["Guaranteed", "NonGuaranteed", "ProgrammaticGuaranteed", "PrivateMarketplace", "OpenExchange"]
+    },
+    "DSPPartner": {
+      "kind": "object",
+      "description": "Demand-side platform integration through which advertisers buy CCO inventory.",
+      "fields": {
+        "name": "string",
+        "biddingProtocol": "string",
+        "transactionTypes": "[TransactionType]",
+        "geographicCoverage": "[CountryCode]"
+      }
+    },
+    "MeasurementProvider": {
+      "kind": "object",
+      "fields": {
+        "name": "string",
+        "method": "string"
+      }
+    },
+    "Order": {
+      "kind": "object",
+      "description": "Direct (non-RTB) order modeled per IAB OpenDirect-OOH.",
+      "fields": {
+        "Id": "string",
+        "AccountId": "string",
+        "AdvertiserBrandId": "string",
+        "Budget": "number",
+        "Currency": "string",
+        "OrderStatus": "OrderStatus",
+        "StartDate": "datetime",
+        "EndDate": "datetime",
+        "Lines": "[Line]"
+      }
+    },
+    "OrderStatus": {
+      "kind": "enum",
+      "values": ["PENDING", "APPROVED", "REJECTED"]
+    },
+    "Line": {
+      "kind": "object",
+      "description": "Single line item within an Order targeting a specific Product/Display set.",
+      "fields": {
+        "Id": "string",
+        "OrderId": "string",
+        "ProductId": "string",
+        "Quantity": "integer",
+        "StartDate": "datetime",
+        "EndDate": "datetime",
+        "Cost": "number"
+      }
+    },
+    "Product": {
+      "kind": "object",
+      "description": "Bookable inventory product (placement, run-of-network, package).",
+      "fields": {
+        "Id": "string",
+        "Name": "string",
+        "DeliveryType": "string",
+        "AdFormatTypes": "[string]",
+        "BasePrice": "number",
+        "Currency": "string"
+      }
+    },
+    "AudienceDataSuite": {
+      "kind": "object",
+      "fields": {
+        "name": "string",
+        "url": "string",
+        "method": "string"
+      }
+    }
+  },
+  "relationships": [
+    { "from": "Order", "to": "Line", "kind": "contains" },
+    { "from": "Line", "to": "Product", "kind": "references" },
+    { "from": "Product", "to": "Display", "kind": "represents" },
+    { "from": "DSPPartner", "to": "Display", "kind": "transactsAgainst" },
+    { "from": "MeasurementProvider", "to": "Display", "kind": "measures" }
+  ]
+}

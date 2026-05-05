@@ -1,0 +1,396 @@
+openapi: 3.0.3
+info:
+  title: Clear Channel Outdoor Automated Direct API
+  description: |
+    REST API for Clear Channel Outdoor's CCO.IO Automated Direct platform, used for
+    programmatic-direct buying of OOH inventory. The endpoints documented here are
+    derived from the open-source Go SDK at github.com/ClearChannelOutdoor/io-sdk-golang
+    and the CCO.IO developer portal at https://developer.cco.io. Access is gated by
+    OAuth 2.0 client credentials issued to authorized CCO buyers and integration partners.
+  version: v1
+  contact:
+    name: Clear Channel Outdoor Developer Platform
+    url: https://developer.cco.io
+servers:
+  - url: https://direct.cco.io
+    description: Production API gateway
+tags:
+  - name: Displays
+    description: Operations on digital and static OOH displays in the CCO inventory.
+  - name: Networks
+    description: Display networks and their member screens.
+  - name: Markets
+    description: CCO market reference data.
+  - name: Products
+    description: Bookable inventory products and packages.
+  - name: Orders
+    description: Direct ad orders that group line-item bookings.
+  - name: Bookings
+    description: Bookings against orders and lines.
+  - name: Campaigns
+    description: Advertising campaigns associated with orders.
+  - name: Creatives
+    description: Creative assets attached to lines and campaigns.
+  - name: Photos
+    description: Photo assets associated with displays.
+  - name: Customers
+    description: Customer accounts (advertisers, agencies).
+  - name: Accounts
+    description: Buyer/agency account records.
+  - name: Contracts
+    description: Buying contracts and master service agreements.
+  - name: Pricing
+    description: Quote and pricing operations.
+  - name: Renewals
+    description: Renewal relationships between contracts.
+  - name: Restrictions
+    description: Inventory restriction rules.
+  - name: Taxonomies
+    description: CCO and IAB taxonomies and reference codes.
+components:
+  securitySchemes:
+    OAuth2ClientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://direct.cco.io/v2/token
+          scopes:
+            displays-modify: Read and modify displays.
+            orders-modify: Read and modify orders.
+            bookings-modify: Read and modify bookings.
+            campaigns-modify: Read and modify campaigns.
+            creatives-modify: Read and modify creatives.
+            customers-modify: Read and modify customers and accounts.
+            markets-modify: Read and modify markets.
+            networks-modify: Read and modify networks and network displays.
+            photos-modify: Read and modify photos.
+            products-modify: Read and modify products.
+            quotes-modify: Read and modify quotes.
+            renewals-modify: Read and modify renewal relationships.
+            restrictions-modify: Read and modify restrictions.
+  parameters:
+    SearchOffset:
+      name: offset
+      in: query
+      schema: { type: integer, minimum: 0, default: 0 }
+    SearchLimit:
+      name: limit
+      in: query
+      schema: { type: integer, minimum: 1, maximum: 1000, default: 100 }
+    Filter:
+      name: filter
+      in: query
+      description: Field-level filter expression (e.g. `mediaProducts.type=Digital`).
+      schema: { type: string }
+  schemas:
+    Display:
+      type: object
+      properties:
+        id: { type: string }
+        title: { type: string }
+        mediaProducts:
+          type: array
+          items: { type: object }
+        digital:
+          type: object
+          properties:
+            width: { type: integer }
+            height: { type: integer }
+        externalIds:
+          type: array
+          items: { type: object }
+    Order:
+      $ref: '../json-schema/clear-channel-outdoor-hldgs-order-schema.json'
+    Product:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        deliveryType:
+          type: string
+          enum: [Exclusive, Guaranteed, Non-Guaranteed]
+        adFormatTypes:
+          type: array
+          items:
+            type: string
+            enum: [HTML5, Flash, Image, Video, Print Poster]
+        basePrice: { type: number }
+        currency: { type: string }
+    Booking:
+      type: object
+    Campaign:
+      type: object
+    Creative:
+      type: object
+    Photo:
+      type: object
+    Customer:
+      type: object
+    Account:
+      type: object
+    Contract:
+      type: object
+    Quote:
+      type: object
+    Network:
+      type: object
+    Market:
+      type: object
+    Restriction:
+      type: object
+    Relationship:
+      type: object
+    Taxonomy:
+      type: object
+    SearchEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items: {}
+        total: { type: integer }
+        offset: { type: integer }
+        limit: { type: integer }
+    Error:
+      type: object
+      properties:
+        code: { type: string }
+        message: { type: string }
+security:
+  - OAuth2ClientCredentials: []
+paths:
+  /v1/displays:
+    get:
+      tags: [Displays]
+      summary: Search Displays
+      description: Search the CCO inventory of digital and static displays.
+      parameters:
+        - $ref: '#/components/parameters/Filter'
+        - $ref: '#/components/parameters/SearchOffset'
+        - $ref: '#/components/parameters/SearchLimit'
+      responses:
+        '200':
+          description: Display search results.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SearchEnvelope' }
+    post:
+      tags: [Displays]
+      summary: Create Display
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Display' }
+      responses:
+        '201': { description: Display created. }
+  /v1/displays/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string }
+    get:
+      tags: [Displays]
+      summary: Get Display
+      responses:
+        '200':
+          description: Display.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Display' }
+    patch:
+      tags: [Displays]
+      summary: Patch Display
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object }
+      responses:
+        '200': { description: Display updated. }
+    delete:
+      tags: [Displays]
+      summary: Delete Display
+      responses:
+        '204': { description: Display deleted. }
+  /v1/networks:
+    get:
+      tags: [Networks]
+      summary: Search Networks
+      responses:
+        '200':
+          description: Network search results.
+          content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } }
+  /v1/networks/{id}/displays:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string }
+    get:
+      tags: [Networks]
+      summary: Search Network Displays
+      responses:
+        '200':
+          description: Displays in the network.
+          content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } }
+  /v1/markets:
+    get:
+      tags: [Markets]
+      summary: Search Markets
+      responses:
+        '200': { description: Markets. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } }
+  /v1/products:
+    get:
+      tags: [Products]
+      summary: Search Products
+      responses:
+        '200': { description: Products. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } }
+    post:
+      tags: [Products]
+      summary: Create Product
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/Product' } } } }
+      responses: { '201': { description: Created. } }
+  /v1/orders:
+    get:
+      tags: [Orders]
+      summary: Search Orders
+      responses:
+        '200': { description: Orders. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } }
+    post:
+      tags: [Orders]
+      summary: Create Order
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/Order' } } } }
+      responses: { '201': { description: Created. } }
+  /v1/orders/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [Orders]
+      summary: Get Order
+      responses: { '200': { description: Order. content: { application/json: { schema: { $ref: '#/components/schemas/Order' } } } } }
+    patch:
+      tags: [Orders]
+      summary: Patch Order
+      requestBody: { required: true, content: { application/json: { schema: { type: object } } } }
+      responses: { '200': { description: Updated. } }
+    delete:
+      tags: [Orders]
+      summary: Delete Order
+      responses: { '204': { description: Deleted. } }
+  /v1/bookings:
+    get:
+      tags: [Bookings]
+      summary: Search Bookings
+      responses: { '200': { description: Bookings. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v1/campaigns:
+    get:
+      tags: [Campaigns]
+      summary: Search Campaigns
+      responses: { '200': { description: Campaigns. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+    post:
+      tags: [Campaigns]
+      summary: Create Campaign
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/Campaign' } } } }
+      responses: { '201': { description: Created. } }
+  /v1/creatives:
+    get:
+      tags: [Creatives]
+      summary: Search Creatives
+      responses: { '200': { description: Creatives. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v2/creatives:
+    get:
+      tags: [Creatives]
+      summary: Search Ad Creatives
+      description: v2 creatives endpoint covering enriched ad creative metadata.
+      responses: { '200': { description: Ad creatives. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v1/photos:
+    get:
+      tags: [Photos]
+      summary: Search Photos
+      responses: { '200': { description: Photos. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v1/customers:
+    get:
+      tags: [Customers]
+      summary: Search Customers
+      responses: { '200': { description: Customers. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v1/accounts:
+    get:
+      tags: [Accounts]
+      summary: Search Accounts
+      responses: { '200': { description: Accounts. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v1/contracts:
+    get:
+      tags: [Contracts]
+      summary: Search Contracts
+      responses: { '200': { description: Contracts. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v1/quotes:
+    get:
+      tags: [Pricing]
+      summary: Search Quotes
+      responses: { '200': { description: Quotes. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v1/quotes/current:
+    get:
+      tags: [Pricing]
+      summary: Get Current Quote
+      responses: { '200': { description: Current quote. content: { application/json: { schema: { $ref: '#/components/schemas/Quote' } } } } }
+  /v1/relationships:
+    get:
+      tags: [Renewals]
+      summary: Search Renewal Relationships
+      responses: { '200': { description: Relationships. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v1/restrictions:
+    get:
+      tags: [Restrictions]
+      summary: Search Restrictions
+      responses: { '200': { description: Restrictions. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v1/codes:
+    get:
+      tags: [Taxonomies]
+      summary: Search CCO Codes
+      responses: { '200': { description: Codes. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v1/taxa:
+    get:
+      tags: [Taxonomies]
+      summary: Search v1 Taxonomies
+      responses: { '200': { description: v1 taxonomy. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v2/taxa:
+    get:
+      tags: [Taxonomies]
+      summary: Search IAB v2 Taxonomies
+      responses: { '200': { description: IAB v2 taxonomy. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v3/taxa:
+    get:
+      tags: [Taxonomies]
+      summary: Search IAB v3 Taxonomies
+      responses: { '200': { description: IAB v3 taxonomy. content: { application/json: { schema: { $ref: '#/components/schemas/SearchEnvelope' } } } } }
+  /v2/token:
+    post:
+      tags: [Authentication]
+      summary: Issue OAuth2 Access Token
+      description: OAuth 2.0 client-credentials token endpoint.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type: { type: string, enum: [client_credentials] }
+                client_id: { type: string }
+                client_secret: { type: string }
+                scope: { type: string }
+      responses:
+        '200':
+          description: Access token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token: { type: string }
+                  token_type: { type: string }
+                  expires_in: { type: integer }
+                  scope: { type: string }

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/clear-channel-outdoor-hldgs/main/json-schema/clear-channel-outdoor-hldgs-openrtb-dooh-schema.json",
+  "title": "OpenRTB DOOH Bid Request (CCO Profile)",
+  "description": "Subset of the OpenRTB 2.6 bid request that targets Digital-Out-of-Home inventory exposed by Clear Channel Outdoor through DSP partners. The 'dooh' object is mutually exclusive with 'site' and 'app'.",
+  "type": "object",
+  "required": ["id", "imp", "dooh"],
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique bid request ID."
+    },
+    "imp": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "banner": { "type": "object" },
+          "video": { "type": "object" },
+          "qty": {
+            "type": "object",
+            "description": "Quantity of impressions/plays bid for. Required for DOOH because a single ad play can be served to multiple viewers.",
+            "properties": {
+              "multiplier": { "type": "number" },
+              "sourcetype": { "type": "integer" },
+              "vendor": { "type": "string" }
+            }
+          },
+          "dt": { "type": "number", "description": "Estimated time the ad will be shown, Unix epoch seconds." },
+          "exp": { "type": "integer" },
+          "bidfloor": { "type": "number" },
+          "bidfloorcur": { "type": "string" }
+        }
+      }
+    },
+    "dooh": {
+      "type": "object",
+      "description": "DOOH object describing the digital out-of-home venue.",
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "description": "Exchange-specific DOOH ID." },
+        "name": { "type": "string" },
+        "venuetype": {
+          "type": "array",
+          "description": "OpenOOH Venue Taxonomy codes describing the venue.",
+          "items": { "type": "string" }
+        },
+        "venuetypetax": {
+          "type": "integer",
+          "description": "Source taxonomy. 1 = OpenOOH 1.x.",
+          "default": 1
+        },
+        "publisher": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string", "description": "Publisher name (e.g., 'Clear Channel Outdoor')." },
+            "domain": { "type": "string" }
+          }
+        },
+        "domain": { "type": "string" },
+        "keywords": { "type": "string" },
+        "content": { "type": "object" }
+      }
+    },
+    "device": {
+      "type": "object",
+      "description": "DOOH device metadata, including geo and screen properties.",
+      "properties": {
+        "geo": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lon": { "type": "number" },
+            "country": { "type": "string" },
+            "region": { "type": "string" },
+            "city": { "type": "string" },
+            "zip": { "type": "string" }
+          }
+        },
+        "ifa": { "type": "string" },
+        "ua": { "type": "string" }
+      }
+    },
+    "user": { "type": "object" },
+    "test": { "type": "integer", "enum": [0, 1] },
+    "at": { "type": "integer", "description": "Auction type. 1=first-price, 2=second-price." },
+    "cur": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

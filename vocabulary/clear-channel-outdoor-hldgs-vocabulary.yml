@@ -1,0 +1,73 @@
+name: Clear Channel Outdoor Holdings Vocabulary
+description: >-
+  Domain vocabulary, taxonomies, and reference terms covering Clear Channel
+  Outdoor's OOH and pDOOH ecosystem: inventory categories, transaction types,
+  the pDOOH supply chain (DSP / SSP / measurement partners), audience-data
+  programs, and standards (OpenRTB 2.6 DOOH, OpenDirect-OOH).
+version: 0.1.0
+domains:
+  - id: ooh-media
+    name: Out-Of-Home Media
+    terms:
+      - { term: Billboard, definition: A large outdoor printed or digital advertising surface, typically along roadways. }
+      - { term: Bulletin, definition: A standardized large-format roadside billboard, commonly 14 x 48 feet. }
+      - { term: Spectacular, definition: An iconic, oversized digital display in a high-traffic urban location. }
+      - { term: Street Furniture, definition: Bus shelters, benches, kiosks and similar pedestrian-level OOH placements. }
+      - { term: Transit, definition: Advertising surfaces on or in buses, trains, taxis, rideshare and transit hubs. }
+      - { term: Airport, definition: Inventory inside airport terminals (gates, baggage claim, jet bridges). }
+      - { term: Mall, definition: Indoor retail-environment OOH displays. }
+      - { term: Digital Out-of-Home (DOOH), definition: OOH inventory served on digital screens supporting dynamic creative and programmatic delivery. }
+      - { term: Static OOH, definition: Traditional non-digital OOH inventory on printed or vinyl surfaces. }
+  - id: pdooh
+    name: Programmatic DOOH
+    terms:
+      - { term: Programmatic Direct, definition: Workflow-automated direct booking against guaranteed inventory; in CCO this is exposed via the CCO.IO Automated Direct API. }
+      - { term: Programmatic Guaranteed, definition: Automated buying where impressions are guaranteed at a fixed price. }
+      - { term: Private Marketplace (PMP), definition: Invitation-only RTB auction between a publisher and a curated set of buyers. }
+      - { term: Open Exchange, definition: Public RTB auction across all DSP-connected buyers. }
+      - { term: Impression Multiplier, definition: Factor applied to a single ad play to estimate total human impressions on a DOOH screen; carried in OpenRTB imp.qty. }
+      - { term: Venue Type, definition: Classification of the physical location of a DOOH screen, expressed using the OpenOOH Venue Taxonomy. }
+  - id: standards
+    name: Industry Standards
+    terms:
+      - { term: OpenRTB, definition: IAB Tech Lab's real-time bidding protocol; v2.6 includes the DOOH object and imp.qty extensions. }
+      - { term: OpenDirect-OOH, definition: IAB Tech Lab community extension of OpenDirect for the OOH industry; defines Order/Line/Product/Account schemas. }
+      - { term: OpenOOH Venue Taxonomy, definition: Standardized venue-type taxonomy for DOOH screens, referenced by venuetypetax=1 in OpenRTB. }
+      - { term: Geopath, definition: Industry-standard OOH measurement organization providing impression and audience metrics. }
+  - id: roles
+    name: Supply-Chain Roles
+    terms:
+      - { term: Publisher, definition: The OOH media owner and operator (e.g., Clear Channel Outdoor). }
+      - { term: SSP, definition: Supply-Side Platform that exposes publisher inventory to RTB demand. }
+      - { term: DSP, definition: Demand-Side Platform that buyers use to bid on inventory. }
+      - { term: Exchange, definition: RTB marketplace connecting SSPs and DSPs. }
+      - { term: Measurement Partner, definition: Third party that quantifies impressions, audience or attribution (Geopath, Comscore, Nielsen). }
+      - { term: Audience Data Provider, definition: Source of audience-targeting segments (LiveRamp, Comscore, RADAR). }
+  - id: cco-products
+    name: CCO Products and Programs
+    terms:
+      - { term: RADAR, definition: Clear Channel Outdoor's audience and attribution data suite based on aggregated mobile location data. }
+      - { term: CCO.IO, definition: Clear Channel Outdoor's developer platform hosting the Automated Direct API at direct.cco.io. }
+      - { term: Automated Direct, definition: CCO's programmatic-direct buying API for displays, products, orders and bookings. }
+dspPartners:
+  - { name: Adelphic, role: DSP }
+  - { name: Adform, role: DSP }
+  - { name: Adomni, role: DSP }
+  - { name: AdQuick, role: DSP/Marketplace }
+  - { name: Campsite, role: DSP }
+  - { name: Displayce, role: DSP }
+  - { name: Google DV360, role: DSP }
+  - { name: Hivestack, role: SSP/DSP }
+  - { name: Nexxen, role: DSP }
+  - { name: OneView, role: DSP }
+  - { name: OutMoove, role: DSP }
+  - { name: Pulsepoint, role: DSP }
+  - { name: Quotient, role: DSP }
+  - { name: Simplifi, role: DSP }
+  - { name: Sito, role: DSP }
+  - { name: StackAdapt, role: DSP }
+  - { name: The Trade Desk, role: DSP }
+  - { name: Vistar Media, role: SSP/DSP }
+  - { name: Xandr, role: DSP }
+  - { name: Yahoo, role: DSP }
+  - { name: Zeta, role: DSP }

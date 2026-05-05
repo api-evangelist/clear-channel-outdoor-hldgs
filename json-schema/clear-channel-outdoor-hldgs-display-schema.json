@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/clear-channel-outdoor-hldgs/main/json-schema/clear-channel-outdoor-hldgs-display-schema.json",
+  "title": "DOOH Display",
+  "description": "A digital out-of-home display, billboard, or screen in the Clear Channel Outdoor network that can be addressed by programmatic and direct buyers. Modeled to align with OpenRTB 2.6 DOOH and OpenDirect OOH product semantics.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "venueType", "geo"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable display identifier within the CCO inventory system."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable display name (e.g., 'Times Square Spectacular #4')."
+    },
+    "inventoryCategory": {
+      "type": "string",
+      "enum": ["Billboard", "StreetFurniture", "Transit", "Airport", "Mall", "Spectacular"],
+      "description": "Inventory category classification."
+    },
+    "format": {
+      "type": "string",
+      "enum": ["Digital", "Static"],
+      "description": "Whether the display is digital or static."
+    },
+    "venueType": {
+      "type": "string",
+      "description": "OpenOOH Venue Taxonomy code (e.g., 'roadside_billboard', 'transit_airports')."
+    },
+    "venueTypeTax": {
+      "type": "integer",
+      "description": "OpenRTB venuetypetax: source taxonomy version. 1 = OpenOOH Venue Taxonomy 1.x.",
+      "minimum": 0
+    },
+    "screen": {
+      "type": "object",
+      "description": "Physical screen properties as modeled by OpenRTB DOOH.",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "fixedScreenSize": { "type": "boolean" },
+        "physicalWidth": { "type": "number", "description": "Physical width of the screen surface, in centimeters." },
+        "physicalHeight": { "type": "number", "description": "Physical height of the screen surface, in centimeters." },
+        "pxRatio": { "type": "number" },
+        "resolutionWidth": { "type": "integer" },
+        "resolutionHeight": { "type": "integer" }
+      },
+      "additionalProperties": false
+    },
+    "geo": {
+      "type": "object",
+      "description": "Geographic location of the display.",
+      "required": ["lat", "lon"],
+      "properties": {
+        "lat": { "type": "number" },
+        "lon": { "type": "number" },
+        "country": { "type": "string", "description": "ISO 3166-1 alpha-3 country code." },
+        "region": { "type": "string" },
+        "city": { "type": "string" },
+        "zip": { "type": "string" },
+        "dma": { "type": "string", "description": "Designated Market Area code." }
+      },
+      "additionalProperties": false
+    },
+    "operatingHours": {
+      "type": "string",
+      "description": "Operating hours in ISO 8601 time-interval notation or 'AlwaysOn'."
+    },
+    "audienceImpression": {
+      "type": "object",
+      "description": "Audience and impression metrics for this display.",
+      "properties": {
+        "averageDailyImpressions": { "type": "integer", "minimum": 0 },
+        "audienceSource": {
+          "type": "string",
+          "description": "Source of audience measurement (e.g., 'Geopath', 'RADAR')."
+        },
+        "panelLength": { "type": "integer", "description": "Slot length in seconds." },
+        "loopLength": { "type": "integer", "description": "Loop length in seconds." }
+      },
+      "additionalProperties": false
+    },
+    "supportedAdFormats": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["Image", "Video", "HTML5", "Static"] },
+      "uniqueItems": true
+    },
+    "transactionTypes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["Guaranteed", "Non-Guaranteed", "Programmatic Guaranteed", "Private Marketplace", "Open Exchange"]
+      },
+      "uniqueItems": true
+    }
+  }
+}

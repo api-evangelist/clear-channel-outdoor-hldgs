@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/clear-channel-outdoor-hldgs/main/json-schema/clear-channel-outdoor-hldgs-order-schema.json",
+  "title": "OOH Order",
+  "description": "An OOH advertising order, derived from the IAB Tech Lab OpenDirect-OOH Order object. Represents the buyer-publisher contract that groups one or more lines targeting Clear Channel inventory.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["Id", "AccountId", "Currency", "Name"],
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "Unique identifier of the order.",
+      "maxLength": 36
+    },
+    "AccountId": {
+      "type": "string",
+      "description": "Identifier of the account (advertiser/buyer) owning the order.",
+      "maxLength": 36
+    },
+    "AdvertiserBrandId": {
+      "type": "string",
+      "description": "Identifier of the AdvertiserBrand being advertised.",
+      "maxLength": 25
+    },
+    "Name": {
+      "type": "string",
+      "description": "Display name of the order. Must be unique.",
+      "maxLength": 100
+    },
+    "Budget": {
+      "type": "number",
+      "description": "Estimated budget for the order. Directional only; not a hard cap."
+    },
+    "Currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code used across the order and its lines.",
+      "maxLength": 3
+    },
+    "StartDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "EndDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "OrderExpiryDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "OrderStatus": {
+      "type": "string",
+      "enum": ["PENDING", "APPROVED", "REJECTED"]
+    },
+    "Industry": {
+      "type": "object",
+      "description": "Industry associated with this order (may differ from advertiser default)."
+    },
+    "PreferredBillingMethod": {
+      "type": "string",
+      "enum": ["Electronic", "Postal"]
+    },
+    "Contacts": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "ProviderData": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Opaque provider-defined data."
+    }
+  }
+}

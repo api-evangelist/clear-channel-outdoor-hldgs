@@ -1,0 +1,46 @@
+{
+  "id": "abf12345-6789-4def-9012-345678901234",
+  "imp": [
+    {
+      "id": "1",
+      "banner": {
+        "w": 1920,
+        "h": 1080,
+        "mimes": ["image/jpeg", "image/png", "video/mp4"]
+      },
+      "qty": {
+        "multiplier": 18.5,
+        "sourcetype": 1,
+        "vendor": "Geopath"
+      },
+      "dt": 1781035200,
+      "exp": 600,
+      "bidfloor": 12.50,
+      "bidfloorcur": "USD"
+    }
+  ],
+  "dooh": {
+    "id": "CCO-DSP-NYC-TIMESQ-04",
+    "name": "Times Square Spectacular #4",
+    "venuetype": ["transit_terminals_train_stations", "outdoor_billboards_iconic"],
+    "venuetypetax": 1,
+    "publisher": {
+      "id": "publisher_clearchannel",
+      "name": "Clear Channel Outdoor",
+      "domain": "clearchanneloutdoor.com"
+    }
+  },
+  "device": {
+    "geo": {
+      "lat": 40.7580,
+      "lon": -73.9855,
+      "country": "USA",
+      "region": "NY",
+      "city": "New York",
+      "zip": "10036"
+    }
+  },
+  "test": 0,
+  "at": 1,
+  "cur": ["USD"]
+}

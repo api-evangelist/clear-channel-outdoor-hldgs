@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/clear-channel-outdoor-hldgs/main/json-schema/clear-channel-outdoor-hldgs-dsp-integration-schema.json",
+  "title": "DSP Integration",
+  "description": "Describes a programmatic Digital-Out-of-Home (pDOOH) DSP integration through which buyers transact against Clear Channel Outdoor inventory.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "biddingProtocol", "transactionTypes"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "DSP partner name."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Public URL of the DSP partner."
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description of the DSP and the role it plays in the pDOOH supply chain."
+    },
+    "biddingProtocol": {
+      "type": "string",
+      "description": "Real-time-bidding protocol the DSP supports for the integration.",
+      "enum": [
+        "OpenRTB 2.5",
+        "OpenRTB 2.6",
+        "OpenRTB 2.6 DOOH",
+        "OpenRTB 3.0",
+        "Proprietary"
+      ]
+    },
+    "transactionTypes": {
+      "type": "array",
+      "description": "Programmatic transaction types supported through this DSP.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Guaranteed",
+          "Non-Guaranteed",
+          "Programmatic Guaranteed",
+          "Private Marketplace",
+          "Open Exchange"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "supportedAdFormats": {
+      "type": "array",
+      "description": "Creative formats accepted by the DSP for CCO inventory.",
+      "items": {
+        "type": "string",
+        "enum": ["Image", "Video", "HTML5", "Static"]
+      },
+      "uniqueItems": true
+    },
+    "inventoryScope": {
+      "type": "array",
+      "description": "Clear Channel inventory categories accessible through this DSP.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Billboard",
+          "StreetFurniture",
+          "Transit",
+          "Airport",
+          "Digital",
+          "Static"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "audienceTargeting": {
+      "type": "object",
+      "description": "Audience targeting capabilities exposed through this DSP.",
+      "properties": {
+        "supportsRADAR": {
+          "type": "boolean",
+          "description": "Whether the DSP supports targeting and measurement against Clear Channel's RADAR audience segments."
+        },
+        "supportsThirdPartyData": {
+          "type": "boolean",
+          "description": "Whether the DSP can ingest third-party audience data (e.g., LiveRamp, Comscore)."
+        },
+        "supportsContextual": {
+          "type": "boolean",
+          "description": "Whether contextual targeting (weather, time-of-day, venue type, dayparting) is supported."
+        }
+      }
+    },
+    "geographicCoverage": {
+      "type": "array",
+      "description": "Geographic markets supported through this DSP integration.",
+      "items": {
+        "type": "string",
+        "description": "ISO 3166-1 alpha-2 country code or named market."
+      }
+    },
+    "measurementPartners": {
+      "type": "array",
+      "description": "Measurement and attribution partners that integrate with this DSP for CCO campaigns.",
+      "items": { "type": "string" }
+    }
+  }
+}
