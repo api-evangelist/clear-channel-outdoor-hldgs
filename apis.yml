@@ -1,0 +1,78 @@
+aid: clear-channel-outdoor-hldgs
+url: https://raw.githubusercontent.com/api-evangelist/clear-channel-outdoor-hldgs/refs/heads/main/apis.yml
+name: Clear Channel Outdoor Holdings
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Advertising
+  - Out Of Home
+  - Programmatic
+  - Digital Out Of Home
+description: >-
+  Clear Channel Outdoor Holdings is one of the largest out-of-home advertising
+  companies in the world and a Fortune 1000 firm, operating billboards, street
+  furniture, transit, and digital out-of-home displays across the United States
+  and select international markets. The company supports programmatic
+  digital-out-of-home (pDOOH) buying through major demand side platforms and
+  offers RADAR, an audience and attribution data suite based on aggregated
+  mobile location data. Clear Channel Outdoor does not publish a public
+  developer portal; integrations occur through DSP partners.
+created: '2026-05-04'
+modified: '2026-05-04'
+specificationVersion: '0.19'
+apis: []
+common:
+  - type: Website
+    url: https://www.clearchanneloutdoor.com
+  - type: ProgrammaticAdvertising
+    url: https://clearchanneloutdoor.com/programmatic-advertising/
+  - type: DataSolutions
+    url: https://clearchanneloutdoor.com/radar-data-solutions/
+  - type: Integrations
+    url: https://clearchanneloutdoor.com/programmatic-advertising/
+    data:
+      - name: Adelphic
+        description: pDOOH buying via Adelphic DSP integration.
+      - name: Adform
+        description: pDOOH buying via Adform DSP integration.
+      - name: Adomni
+        description: pDOOH buying via Adomni DSP integration.
+      - name: AdQuick
+        description: pDOOH buying via AdQuick DSP integration.
+      - name: Campsite
+        description: pDOOH buying via Campsite DSP integration.
+      - name: Displayce
+        description: pDOOH buying via Displayce DSP integration.
+      - name: Google DV360
+        description: pDOOH buying via Google Display & Video 360 DSP integration.
+      - name: Hivestack
+        description: pDOOH buying via Hivestack DSP integration.
+      - name: Nexxen
+        description: pDOOH buying via Nexxen DSP integration.
+      - name: OneView
+        description: pDOOH buying via OneView DSP integration.
+      - name: OutMoove
+        description: pDOOH buying via OutMoove DSP integration.
+      - name: Pulsepoint
+        description: pDOOH buying via Pulsepoint DSP integration.
+      - name: Quotient
+        description: pDOOH buying via Quotient DSP integration.
+      - name: Simplifi
+        description: pDOOH buying via Simplifi DSP integration.
+      - name: Sito
+        description: pDOOH buying via Sito DSP integration.
+      - name: StackAdapt
+        description: pDOOH buying via StackAdapt DSP integration.
+      - name: The Trade Desk
+        description: pDOOH buying via The Trade Desk DSP integration.
+      - name: Vistar Media
+        description: pDOOH buying via Vistar Media DSP integration.
+      - name: Xandr
+        description: pDOOH buying via Xandr DSP integration.
+      - name: Yahoo
+        description: pDOOH buying via Yahoo DSP integration.
+      - name: Zeta
+        description: pDOOH buying via Zeta DSP integration.
+maintainers:
+  - FN: API Evangelist
+    url: https://apievangelist.com
