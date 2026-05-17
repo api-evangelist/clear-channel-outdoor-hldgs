@@ -61,7 +61,7 @@ common:
     url: https://clearchanneloutdoor.com/radar-data-solutions/
   - type: GitHub
     url: https://github.com/ClearChannelOutdoor
-  - type: JsonLd
+  - type: JSONLD
     url: json-ld/clear-channel-outdoor-hldgs-context.jsonld
   - type: Vocabulary
     url: vocabulary/clear-channel-outdoor-hldgs-vocabulary.yml
