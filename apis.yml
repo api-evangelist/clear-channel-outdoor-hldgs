@@ -51,6 +51,8 @@ apis:
       - type: Authentication
         url: https://direct.cco.io/v2/token
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/clear-channel-outdoor
   - type: Website
     url: https://www.clearchanneloutdoor.com
   - type: DeveloperPortal
