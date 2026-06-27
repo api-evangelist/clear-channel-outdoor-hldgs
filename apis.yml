@@ -46,7 +46,7 @@ apis:
         url: https://developer.cco.io
       - type: OpenAPI
         url: openapi/clear-channel-outdoor-direct-openapi.yml
-      - type: SDK
+      - type: SDKs
         url: https://github.com/ClearChannelOutdoor/io-sdk-golang
       - type: Authentication
         url: https://direct.cco.io/v2/token
@@ -67,7 +67,7 @@ common:
     url: json-ld/clear-channel-outdoor-hldgs-context.jsonld
   - type: Vocabulary
     url: vocabulary/clear-channel-outdoor-hldgs-vocabulary.yml
-  - type: SDK
+  - type: SDKs
     url: https://github.com/ClearChannelOutdoor/io-sdk-golang
     data:
       - name: io-sdk-golang
