@@ -51,6 +51,10 @@ apis:
       - type: Authentication
         url: https://direct.cco.io/v2/token
 common:
+  - type: DomainSecurity
+    url: security/clear-channel-outdoor-hldgs-domain-security.yml
+  - url: https://clearchanneloutdoor.com/company-news/
+    type: Blog
   - type: LinkedIn
     url: https://www.linkedin.com/company/clear-channel-outdoor
   - type: Website
