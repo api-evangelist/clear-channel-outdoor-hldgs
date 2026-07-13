@@ -1,0 +1,14 @@
+{
+  "repo": "clear-channel-outdoor-hldgs",
+  "feeds": [
+    {
+      "source": "https://clearchanneloutdoor.com/company-news/",
+      "feed_url": "https://clearchanneloutdoor.com/company-news/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 6
+}
