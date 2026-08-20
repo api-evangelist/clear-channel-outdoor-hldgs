@@ -17,6 +17,14 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/clear-channel-outdoor-hldgs.png
 tags:
   - Advertising
+  - Out-of-Home
+  - Programmatic
+  - Digital Out Of Home
+  - pDOOH
+  - OpenRTB
+  - OpenDirect
+tags_raw:
+  - Advertising
   - Out Of Home
   - Programmatic
   - Digital Out Of Home
