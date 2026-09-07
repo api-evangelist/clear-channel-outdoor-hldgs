@@ -187,3 +187,5 @@ common:
 maintainers:
   - FN: API Evangelist
     url: https://apievangelist.com
+x-parent: clear-channel-outdoor
+x-relationship: product
